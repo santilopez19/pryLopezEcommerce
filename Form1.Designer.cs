@@ -48,11 +48,16 @@
             // 
             // dgvCarrito
             // 
+            this.dgvCarrito.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvCarrito.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvCarrito.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dgvCarrito.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCarrito.Location = new System.Drawing.Point(14, 16);
+            this.dgvCarrito.GridColor = System.Drawing.Color.LightBlue;
+            this.dgvCarrito.Location = new System.Drawing.Point(19, 20);
+            this.dgvCarrito.Margin = new System.Windows.Forms.Padding(1);
             this.dgvCarrito.Name = "dgvCarrito";
-            this.dgvCarrito.Size = new System.Drawing.Size(188, 234);
+            this.dgvCarrito.RowHeadersWidth = 51;
+            this.dgvCarrito.Size = new System.Drawing.Size(460, 288);
             this.dgvCarrito.TabIndex = 5;
             // 
             // groupBox2
@@ -61,9 +66,11 @@
             this.groupBox2.Controls.Add(this.btnPagar);
             this.groupBox2.Controls.Add(this.dgvCarrito);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox2.Location = new System.Drawing.Point(166, 12);
+            this.groupBox2.Location = new System.Drawing.Point(221, 15);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(217, 321);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(499, 395);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Carrito";
@@ -74,18 +81,20 @@
             this.lblTotalPagar.BackColor = System.Drawing.Color.LightBlue;
             this.lblTotalPagar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPagar.Location = new System.Drawing.Point(11, 279);
+            this.lblTotalPagar.Location = new System.Drawing.Point(237, 335);
+            this.lblTotalPagar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalPagar.Name = "lblTotalPagar";
-            this.lblTotalPagar.Size = new System.Drawing.Size(104, 16);
+            this.lblTotalPagar.Size = new System.Drawing.Size(116, 20);
             this.lblTotalPagar.TabIndex = 8;
-            this.lblTotalPagar.Text = "Total :                    ";
+            this.lblTotalPagar.Text = "Total :            ";
             // 
             // btnPagar
             // 
             this.btnPagar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnPagar.Location = new System.Drawing.Point(127, 270);
+            this.btnPagar.Location = new System.Drawing.Point(391, 324);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
             this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(75, 31);
+            this.btnPagar.Size = new System.Drawing.Size(82, 38);
             this.btnPagar.TabIndex = 7;
             this.btnPagar.Text = "Pagar";
             this.btnPagar.UseVisualStyleBackColor = true;
@@ -93,89 +102,103 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 12);
+            this.label4.Location = new System.Drawing.Point(29, 15);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
+            this.label4.Size = new System.Drawing.Size(66, 16);
             this.label4.TabIndex = 16;
             this.label4.Text = "Categoria";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 99);
+            this.label2.Location = new System.Drawing.Point(48, 122);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(61, 16);
             this.label2.TabIndex = 15;
             this.label2.Text = "Cantidad";
             // 
             // btnAgregarCarrito
             // 
             this.btnAgregarCarrito.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarCarrito.Location = new System.Drawing.Point(25, 299);
+            this.btnAgregarCarrito.Location = new System.Drawing.Point(33, 368);
+            this.btnAgregarCarrito.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarCarrito.Name = "btnAgregarCarrito";
-            this.btnAgregarCarrito.Size = new System.Drawing.Size(121, 26);
+            this.btnAgregarCarrito.Size = new System.Drawing.Size(161, 32);
             this.btnAgregarCarrito.TabIndex = 14;
             this.btnAgregarCarrito.Text = "Agregar al carrito";
             this.btnAgregarCarrito.UseVisualStyleBackColor = true;
+            this.btnAgregarCarrito.Click += new System.EventHandler(this.btnAgregarCarrito_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 130);
+            this.label1.Location = new System.Drawing.Point(72, 160);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 13;
             this.label1.Text = "Descripcion";
             // 
             // numCant
             // 
-            this.numCant.Location = new System.Drawing.Point(91, 97);
+            this.numCant.Location = new System.Drawing.Point(121, 119);
+            this.numCant.Margin = new System.Windows.Forms.Padding(4);
             this.numCant.Name = "numCant";
-            this.numCant.Size = new System.Drawing.Size(46, 20);
+            this.numCant.Size = new System.Drawing.Size(61, 22);
             this.numCant.TabIndex = 12;
             // 
             // lstDescripcion
             // 
+            this.lstDescripcion.BackColor = System.Drawing.Color.White;
             this.lstDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstDescripcion.FormattingEnabled = true;
-            this.lstDescripcion.Location = new System.Drawing.Point(25, 146);
+            this.lstDescripcion.ItemHeight = 16;
+            this.lstDescripcion.Location = new System.Drawing.Point(33, 180);
+            this.lstDescripcion.Margin = new System.Windows.Forms.Padding(4);
             this.lstDescripcion.Name = "lstDescripcion";
-            this.lstDescripcion.Size = new System.Drawing.Size(121, 145);
+            this.lstDescripcion.Size = new System.Drawing.Size(161, 178);
             this.lstDescripcion.TabIndex = 11;
             // 
             // cmbProducto
             // 
             this.cmbProducto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbProducto.FormattingEnabled = true;
-            this.cmbProducto.Location = new System.Drawing.Point(25, 70);
+            this.cmbProducto.Location = new System.Drawing.Point(33, 86);
+            this.cmbProducto.Margin = new System.Windows.Forms.Padding(4);
             this.cmbProducto.Name = "cmbProducto";
-            this.cmbProducto.Size = new System.Drawing.Size(121, 21);
+            this.cmbProducto.Size = new System.Drawing.Size(160, 24);
             this.cmbProducto.TabIndex = 10;
+            this.cmbProducto.SelectedIndexChanged += new System.EventHandler(this.cmbProducto_SelectedIndexChanged);
             // 
             // cmbCategoria
             // 
             this.cmbCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(25, 28);
+            this.cmbCategoria.Location = new System.Drawing.Point(33, 34);
+            this.cmbCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(121, 21);
+            this.cmbCategoria.Size = new System.Drawing.Size(160, 24);
             this.cmbCategoria.TabIndex = 9;
+            this.cmbCategoria.SelectedIndexChanged += new System.EventHandler(this.cmbCategoria_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 55);
+            this.label5.Location = new System.Drawing.Point(29, 68);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.Size = new System.Drawing.Size(68, 16);
             this.label5.TabIndex = 17;
             this.label5.Text = "Productos";
             // 
             // frmCompras
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(400, 348);
+            this.ClientSize = new System.Drawing.Size(733, 428);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -186,6 +209,7 @@
             this.Controls.Add(this.cmbProducto);
             this.Controls.Add(this.numCant);
             this.Controls.Add(this.lstDescripcion);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmCompras";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "E-Commerce";

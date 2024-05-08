@@ -8,97 +8,149 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace pryLopezEcommerce
 {
     public partial class frmCompras : Form
     {
-        private List<Producto> productosDisponibles = new List<Producto>();
-        private Dictionary<string, List<Producto>> productosPorCategoria = new Dictionary<string, List<Producto>>();
-        private List<clsElementoCarrito> carrito = new List<clsElementoCarrito>();
+        private List<clsProducto> listaProductos = new List<clsProducto>();
+        private Dictionary<clsProducto, int> carrito = new Dictionary<clsProducto, int>();
+        private double totalCompra = 0.0;
+        private List<clsCategoria> categorias = new List<clsCategoria>();
+
         public frmCompras()
         {
             InitializeComponent();
-            InicializarProductos();
-            // Llenar el combo box de categorías
-            foreach (var categoria in productosPorCategoria.Keys)
-            {
-                cmbCategoria.Items.Add(categoria);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            CargarDatosDePrueba();
+            ConfigurarDataGridViewCarrito();
+            InicializarCategorias();
+            ActualizarComboBoxCategorias();
+            ActualizarComboBoxProductos();
         }
-        private void InicializarProductos()
+
+        private void InicializarCategorias()
         {
-            // Crear y agregar productos a la lista productosDisponibles
-            Producto producto1 = new Producto("Camiseta", "Ropa", 15.0);
-            productosDisponibles.Add(producto1);
+            // Definir categorías y sus productos asociados
+            clsCategoria categoria1 = new clsCategoria("Categoria 1");
+            categoria1.Productos.Add(new clsProducto("Producto 1", 10.0, "Categoria 1", "Este es un producto increíble que te sorprenderá con su calidad y versatilidad."));
+            categoria1.Productos.Add(new clsProducto("Producto 2", 20.0, "Categoria 2", "Descubre el poder de este producto innovador que transformará tu vida cotidiana."));
 
-            Producto producto2 = new Producto("Pantalón", "Ropa", 25.0);
-            productosDisponibles.Add(producto2);
+            clsCategoria categoria2 = new clsCategoria("Categoria 2");
+            categoria2.Productos.Add(new clsProducto("Producto 3", 30.0, "Categoria 1", "Convierte cada momento en una experiencia inolvidable con este producto único en su clase."));
+            categoria2.Productos.Add(new clsProducto("Producto 4", 40.0, "Categoria 2", "Descripción del Producto 4"));
 
-            Producto producto3 = new Producto("Zapatillas", "Calzado", 50.0);
-            productosDisponibles.Add(producto3);
-
-            Producto producto4 = new Producto("Teléfono", "Electrónica", 300.0);
-            productosDisponibles.Add(producto4);
-
-            // Agrupar productos por categoría en el diccionario productosPorCategoria
-            foreach (var producto in productosDisponibles)
-            {
-                if (!productosPorCategoria.ContainsKey(producto.Categoria))
-                {
-                    productosPorCategoria[producto.Categoria] = new List<Producto>();
-                }
-                productosPorCategoria[producto.Categoria].Add(producto);
-            }
+            // Agregar categorías a la lista de categorías
+            categorias.Add(categoria1);
+            categorias.Add(categoria2);
         }
-        private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Llenar el combo box de productos según la categoría seleccionada
-            cmbProducto.Items.Clear();
-            string categoriaSeleccionada = cmbCategoria.SelectedItem.ToString();
-            foreach (var producto in productosPorCategoria[categoriaSeleccionada])
-            {
-                cmbProducto.Items.Add(producto.Nombre);
-            }
-        }
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            // Obtener el producto seleccionado
-            string nombreProducto = cmbProducto.SelectedItem.ToString();
-            Producto productoSeleccionado = productosDisponibles.Find(p => p.Nombre == nombreProducto);
 
-            // Obtener la cantidad
+        private void ActualizarComboBoxCategorias()
+        {
+            cmbCategoria.DataSource = null;
+            cmbCategoria.DataSource = categorias;
+            cmbCategoria.DisplayMember = "Nombre";
+        }
+
+        private void ConfigurarDataGridViewCarrito()
+        {
+            dgvCarrito.Columns.Add("Nombre", "Nombre"); // Agregar columna para el nombre del producto
+            dgvCarrito.Columns.Add("Cantidad", "Cantidad"); // Agregar columna para la cantidad
+            dgvCarrito.Columns.Add("Subtotal", "Subtotal"); // Agregar columna para el subtotal
+        }
+
+        private void CargarDatosDePrueba()
+        {
+            listaProductos.Add(new clsProducto("Producto 1", 10.0, "Categoria 1", "Este es un producto increíble que te sorprenderá con su calidad y versatilidad."));
+            listaProductos.Add(new clsProducto("Producto 2", 20.0, "Categoria 2", "Descubre el poder de este producto innovador que transformará tu vida cotidiana."));
+            listaProductos.Add(new clsProducto("Producto 3", 30.0, "Categoria 1", "Convierte cada momento en una experiencia inolvidable con este producto único en su clase."));
+        }
+
+        private void ActualizarComboBoxProductos()
+        {
+            cmbProducto.DataSource = null;
+            cmbProducto.DataSource = listaProductos;
+            cmbProducto.DisplayMember = "Nombre";
+        }
+
+        private void btnAgregarCarrito_Click(object sender, EventArgs e)
+        {
+            clsProducto productoSeleccionado = cmbProducto.SelectedItem as clsProducto;
             int cantidad = (int)numCant.Value;
 
-            // Agregar el producto al carrito
-            carrito.Add(new clsElementoCarrito(productoSeleccionado, cantidad));
+            if (productoSeleccionado != null && cantidad > 0)
+            {
+                if (carrito.ContainsKey(productoSeleccionado))
+                {
+                    carrito[productoSeleccionado] += cantidad;
+                }
+                else
+                {
+                    carrito.Add(productoSeleccionado, cantidad);
+                }
 
-            // Actualizar el DataGridView del carrito
-            ActualizarCarrito();
+                // Actualizar el DataGridView
+                ActualizarDataGridViewCarrito();
 
-            // Calcular y mostrar el total de la compra
-            CalcularTotalCompra();
+                // Actualizar el total de la compra
+                CalcularTotalCompra();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un producto y una cantidad válida.");
+            }
         }
-        private void ActualizarCarrito()
+
+        private void ActualizarDataGridViewCarrito()
         {
             dgvCarrito.Rows.Clear();
-            foreach (var elemento in carrito)
+
+            foreach (var kvp in carrito)
             {
-                dgvCarrito.Rows.Add(elemento.Producto.Nombre, elemento.Cantidad, elemento.Subtotal);
+                clsProducto producto = kvp.Key;
+                int cantidad = kvp.Value;
+                string[] row = { producto.Nombre, cantidad.ToString(), (producto.Precio * cantidad).ToString() };
+                dgvCarrito.Rows.Add(row);
             }
         }
+
         private void CalcularTotalCompra()
         {
-            double total = 0;
-            foreach (var elemento in carrito)
+            totalCompra = 0.0;
+
+            foreach (var kvp in carrito)
             {
-                total += elemento.Subtotal;
+                clsProducto producto = kvp.Key;
+                int cantidad = kvp.Value;
+                totalCompra += producto.Precio * cantidad;
             }
-            lblTotalPagar.Text = total.ToString("C");
+
+            lblTotalPagar.Text = totalCompra.ToString("C");
+        }
+
+        private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clsCategoria categoriaSeleccionada = cmbCategoria.SelectedItem as clsCategoria;
+            if (categoriaSeleccionada != null)
+            {
+                cmbProducto.DataSource = null;
+                cmbProducto.DataSource = categoriaSeleccionada.Productos;
+                cmbProducto.DisplayMember = "Nombre";
+            }
+        }
+
+        private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clsProducto productoSeleccionado = cmbProducto.SelectedItem as clsProducto;
+            if (productoSeleccionado != null)
+            {
+                // Actualizar la descripción con el nombre y precio del producto seleccionado
+                lstDescripcion.Text = $" Producto: {productoSeleccionado.Nombre} - Precio: {productoSeleccionado.Precio.ToString("C")}";
+            }
         }
 
     }
